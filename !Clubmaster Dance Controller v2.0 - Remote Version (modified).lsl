@@ -43,14 +43,20 @@ vector sparkleEndColour=<0.941, 0.847, 0.459>;          // for main controller p
 float sparkleBurstSpeed=6.25;                           // for main controller particle effect - this affects how far out from center the sparkles go
 integer sparkleBurstCount=7;                            // for main controller particle effect - number of particles per burst
 float rpm=4.0;                                          // how rapidly to rotate the controller on its axis (in revolutions per minute) 0.0 disables rotation completely
+//
+// ******************************************************************************
+// *                       Extras for remote dance poles                        *
+// ******************************************************************************
+// this section contains some extra coms channels to make the main dance ball work with remotes
+integer RemoteChannel = -741285681;
+integer RemoteChannelListen;
 // ******************************************************************************
 // * DO NOT CHANGE ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING! *
 // ******************************************************************************
 list anData=[]; list styles=[]; integer anStride=8; list dancers=[]; integer dancerStride=15; integer B1USER=0; integer B1ID=1; integer B1AN=2; integer B1POS=3; integer B1ROT=4; integer B2USER=5; integer B2ID=6; integer B2AN=7; integer B2POS=8; integer B2ROT=9; integer BASEPOS=10; integer SWAPFLAG=11; integer STYLE=12; integer ANNAME=13; integer AUTO=14; integer nextBallID; list ballRezFor; list singlesDances; list currentDances; list singlesUsers; list singlesStyles; list groupUsers; string groupDance; string singlesStyleCount; string singlesDanceCount; string couplesDanceCount; integer handle; integer myChannel; string txtDia; list butDia; string myState; integer tickCouples=TRUE; list partnerF; list partnerM; integer indexNpcF; integer indexNpcM;integer osNpcObjectGroup=8; list npcMatch;
 
-key toucher;//moved to global from touch start event so that i can also use it with a linked message. 
-
-startGroupDancing(key who) {
+startGroupDancing(key who) 
+{
     groupUsers=[]+groupUsers+[who];
     list anToStop=llGetAnimationList(who);
     osAvatarPlayAnimation(who,groupDance);
@@ -59,7 +65,9 @@ startGroupDancing(key who) {
     if (!osIsNpc(who)) llRegionSayTo(who,0,"You've joined the group dance and will be in synch when it next changes. Touch the dance ball again to stop dancing");
     updateText();
 }
-showSinglesMenu(key who,integer page) {
+
+showSinglesMenu(key who,integer page) 
+{
     txtDia="Pick a singles dance style to use\nQUIT to stop dancing";
     string curStyle=llList2String(singlesUsers,llListFindList(singlesUsers,[who])+1);
     if (curStyle!="NO_STYLE_SELECTED") txtDia+="\n\nYour current style is: "+curStyle;
@@ -76,14 +84,18 @@ showSinglesMenu(key who,integer page) {
     else butDia=[]+butDia+["*"];
     llDialog(who,txtDia,llList2List(butDia,9,11)+llList2List(butDia,6,8)+llList2List(butDia,3,5)+llList2List(butDia,0,2),myChannel);
 }
-startSingles(key who, string currentSinglesStyle) {
+
+startSingles(key who, string currentSinglesStyle) 
+{
     list anToStop=llGetAnimationList(who);
     osAvatarPlayAnimation(who,llList2String(currentDances,llListFindList(currentDances,llList2String(singlesUsers,llListFindList(singlesUsers,[who])+1))+1));
     integer a=llGetListLength(anToStop);
     while(--a>=0) {osAvatarStopAnimation(who,llList2String(anToStop,a));}
     updateText();
 }
-nextSingles(key who, string currentSinglesStyle) {
+
+nextSingles(key who, string currentSinglesStyle) 
+{
     string curD=llList2String(currentDances,llListFindList(currentDances,[currentSinglesStyle])+1);
     string nextD=llList2String(currentDances,llListFindList(currentDances,[currentSinglesStyle])+2);
     if(curD!=nextD) {
@@ -91,11 +103,15 @@ nextSingles(key who, string currentSinglesStyle) {
         osAvatarStopAnimation(who,curD);
     }
 }
-stopSingles(key who, string currentSinglesStyle) {
+
+stopSingles(key who, string currentSinglesStyle) 
+{
     osAvatarPlayAnimation(who,"stand");
     osAvatarStopAnimation(who,llList2String(currentDances,llListFindList(currentDances,[currentSinglesStyle])+1));
 }
-persistCurrent(integer anToUpdate) {
+
+persistCurrent(integer anToUpdate) 
+{
     list ball1Params=osGetPrimitiveParams(llList2Key(dancers,B1ID),[PRIM_POSITION,PRIM_ROTATION]);
     list ball2Params=osGetPrimitiveParams(llList2Key(dancers,B2ID),[PRIM_POSITION,PRIM_ROTATION]);
     list newBall1AnData=llParseString2List(regToRel(llList2Vector(dancers,BASEPOS),ZERO_ROTATION,llList2Vector(ball1Params,0),llList2Rot(ball1Params,1)),["|"],[]);
@@ -103,7 +119,9 @@ persistCurrent(integer anToUpdate) {
     list newAnEntry=llList2List(anData,anToUpdate,anToUpdate+2)+newBall1AnData+[llList2String(anData,anToUpdate+5)]+newBall2AnData;
     anData=[]+llListReplaceList(anData,newAnEntry,anToUpdate,anToUpdate+anStride-1);
 }
-saveNotecard() {
+
+saveNotecard() 
+{
     integer l=llGetListLength(anData);
     if (l<anStride) {llOwnerSay("ERROR! Save notecard called with no animation data in memory. Aborting save."); return;}
     llRemoveInventory(animNotecard); llSleep(0.2);
@@ -113,14 +131,18 @@ saveNotecard() {
     osMakeNotecard(animNotecard,data);
     llOwnerSay("The new data has been stored to your notecard");
 }
-doSynch(key who) {
+
+doSynch(key who) 
+{
     integer i=getPairIndex(who);
     osAvatarStopAnimation(llList2Key(dancers,i+B1USER),llList2String(dancers,i+B1AN));
     osAvatarPlayAnimation(llList2Key(dancers,i+B1USER),llList2String(dancers,i+B1AN));
     osAvatarStopAnimation(llList2Key(dancers,i+B2USER),llList2String(dancers,i+B2AN));
     osAvatarPlayAnimation(llList2Key(dancers,i+B2USER),llList2String(dancers,i+B2AN));
 }
-showMain(key who) {
+
+showMain(key who) 
+{
     txtDia="Please select a dance style\nor SYNCH to resynch current dance";
     if (llList2Integer(dancers,getPairIndex(who)+AUTO)) {
         butDia=[]+["MANUAL","SYNCH","QUIT"]+llList2List(styles,6,8)+llList2List(styles,3,5)+llList2List(styles,0,2);
@@ -131,6 +153,7 @@ showMain(key who) {
     }
     llDialog(who,txtDia,butDia,myChannel);
 }
+
 showPickAn(key who, string styleName) {
     txtDia="Pick an animation to play or...\nSTYLES to select a different style\nSYNCH to resynch animation\nOPTIONS to access options menu";
     list ans=[];
@@ -140,6 +163,7 @@ showPickAn(key who, string styleName) {
     butDia=[]+["STYLES","SYNCH","OPTIONS"]+llList2List(ans,6,8)+llList2List(ans,3,5)+llList2List(ans,0,2);
     llDialog(who,txtDia,butDia,myChannel);
 }
+
 showOptions(key who) {
     if (myState=="READY") {
         txtDia="Please select an action:\n\nBACK to return to previous menu\nSWAP positions with partner\nAUTO to change dances automatically\nMANUAL to go back to manual\n"+"Z ADJUST to turn on height adjust\nZ STOP ADJ to turn it off\nZ RESET to revert to default position\nNEW M and NEW F will randomly select another male or female NPC dance partner";
@@ -159,6 +183,7 @@ showOptions(key who) {
     } else { llOwnerSay("ERROR! Attempting to show options menu but state was "+myState); return;}
     llDialog(who,txtDia,butDia,myChannel);
 }
+
 playAnimation(integer pairIndex, integer nextAnIndex) {
     list thisCouple=llList2List(dancers,pairIndex,pairIndex+dancerStride-1);
     list nextAnData=llList2List(anData,nextAnIndex,nextAnIndex+anStride-1);
@@ -179,21 +204,28 @@ playAnimation(integer pairIndex, integer nextAnIndex) {
         llRegionSayTo(keyToMessage,0,"Your animation selection won't begin to play until you have a seated partner but your selection has been stored.");
     }
 }
-integer getPairIndex(string find) {
+
+integer getPairIndex(string find) 
+{
     return dancerStride*llFloor((float)llListFindList(dancers,[find])/(float)dancerStride);
 }
-string regToRel(vector basePos, rotation baseRot, vector regionPos,rotation regionRot) {
+
+string regToRel(vector basePos, rotation baseRot, vector regionPos,rotation regionRot) 
+{
     vector refPos=(regionPos - basePos) / baseRot;
     vector refRot=llRot2Euler((rotation)regionRot/ baseRot)*RAD_TO_DEG;
     string strToReturn="<"+trimF(refPos.x)+","+trimF(refPos.y)+","+trimF(refPos.z)+">"+"|<"+trimF(refRot.x)+","+trimF(refRot.y)+","+trimF(refRot.z)+">";
     return strToReturn;
 }
+
 string relToReg(vector basePos, rotation baseRot, vector refPos,vector refRot) {
     vector regionPos=refPos*baseRot+basePos;
     rotation regionRot=llEuler2Rot(refRot*DEG_TO_RAD)*baseRot;
     return ((string)regionPos+"|"+(string)regionRot);
 }
-string trimF(float value) {
+
+string trimF(float value) 
+{
     integer newVal=llRound(value*10000);
     integer negFlag=FALSE;
     if (newVal<0) { negFlag=TRUE; newVal*=-1; }
@@ -213,25 +245,32 @@ string trimF(float value) {
     if (negFlag) retStr="-"+retStr;
     return retStr;
 }
-showFirst(key who) {
+
+showFirst(key who) 
+{
     txtDia="How would you like to dance?\n\nSINGLES - pick a singles style\nGROUP - join the group dance style\nCOUPLES - dance with a friend\nNPC COUPLES - dance with a NPC\nOOPS I don't want to dance";
     butDia=["COUPLES","NPC COUPLES","OOPS","SINGLES","GROUP"];
     llDialog(who,txtDia,butDia,myChannel);
 }
-doInitialize() {
-    if(llGetInventoryType(poseballName)!=INVENTORY_OBJECT) {
+
+doInitialize() 
+{
+    if(llGetInventoryType(poseballName)!=INVENTORY_OBJECT) 
+    {
         llOwnerSay("ERROR! Unable to find the poseball "+poseballName+" in inventory");
         myState="ERROR";
         return;
     }
-    if (llGetInventoryType(animNotecard)!=INVENTORY_NOTECARD) {
+    if (llGetInventoryType(animNotecard)!=INVENTORY_NOTECARD) 
+    {
         llOwnerSay("ERROR! Unable to find the animation data notecard");
         myState="ERROR";
         return;
     }
     string cardData=osGetNotecard(animNotecard);
     anData=[]+llParseString2List(cardData,["|","\n"],[]);
-    if (llGetInventoryType(singlesNotecard)!=INVENTORY_NOTECARD){
+    if (llGetInventoryType(singlesNotecard)!=INVENTORY_NOTECARD)
+    {
         llOwnerSay("ERROR! Unable to find the single data data notecard");
         myState="ERROR";
         return;
@@ -264,7 +303,8 @@ doInitialize() {
         }
         i++;
     }
-    if (llListFindList(singlesStyles,[groupStyle])<0) {
+    if (llListFindList(singlesStyles,[groupStyle])<0) 
+    {
         integer gse;
         if (groupStyle=="") gse=TRUE;
         groupStyle=llList2String(singlesStyles,0);
@@ -272,33 +312,41 @@ doInitialize() {
         else llOwnerSay("NOTICE: Setting "+groupStyle+" as the group dance style because the specified style wasn't found");
     }
     groupDance=llList2String(singlesDances,llListFindList(singlesDances,[groupStyle])+1);
-    if (errorCheck) {
+    if (errorCheck) 
+    {
         i=0; l=llGetListLength(singlesDances);
         while(i<l) {
-            if (llListFindList(singlesStyles,[llList2String(singlesDances,i+1)])>=0) {
+            if (llListFindList(singlesStyles,[llList2String(singlesDances,i+1)])>=0) 
+            {
                 llOwnerSay("ERROR! A singles dance animation name is in conflict with one of the singles styles names. Style names must be unique! Conflict name is: "+llList2String(singlesDances,i+1));
                 myState="ERROR";
             }
-            if (llGetInventoryType(llList2String(singlesDances,i+1))!=INVENTORY_ANIMATION) {
+            if (llGetInventoryType(llList2String(singlesDances,i+1))!=INVENTORY_ANIMATION) 
+            {
                 llOwnerSay("ERROR! Unable to locate the singles dance animation \""+llList2String(singlesDances,i+1)+"\" in inventory.");
                 myState="ERROR";
             }
             i+=2;
         }
-        if (myState=="ERROR") {
+        if (myState=="ERROR") 
+        {
             llOwnerSay("Errors detected during singles notecard data check. Please fix and restart");
             return;
         }
     }
     i=0; l=llGetListLength(anData);
-    if (errorCheck) {
+    if (errorCheck) 
+    {
         while(--l>=0) {anData=[]+llListReplaceList(anData,[llStringTrim(llList2String(anData,l),STRING_TRIM)],l,l);}
         l=llGetListLength(anData);
     }
     styles=[];
-    while (i<l) {
-        if (errorCheck) {
-            if (llListFindList(singlesStyles,[llList2String(anData,i)])>=0) {
+    while (i<l) 
+    {
+        if (errorCheck) 
+        {
+            if (llListFindList(singlesStyles,[llList2String(anData,i)])>=0) 
+            {
                 llOwnerSay("ERROR! A doubles dance style name is in conflict with one of the singles styles names. Style names must be unique! Please correct this and restart.");
                 myState="ERROR";
                 return;
@@ -307,32 +355,49 @@ doInitialize() {
         if (llListFindList(styles,[llList2String(anData,i)])<0) styles=[]+styles+[llList2String(anData,i)];
         i+=anStride;
     }
-    while(llGetListLength(styles)<9) {styles=[]+styles+["-"];}
+    while(llGetListLength(styles)<9) 
+    {
+        styles=[]+styles+["-"];
+    }
     if (llGetListLength(styles)>9) llOwnerSay("WARNING! Found "+(string)(llGetListLength(styles))+" different couples dance styles but only the first 9 can be shown. Please correct this (but this is a non-fatal error so the dance machine will still work)");
-    while (llListFindList(styles,["-","-","-"])>=0) {styles=[]+llDeleteSubList(styles,llListFindList(styles,["-","-","-"]),llListFindList(styles,["-","-","-"])+2);}
-    if (errorCheck) {
+    while (llListFindList(styles,["-","-","-"])>=0) 
+    {
+        styles=[]+llDeleteSubList(styles,llListFindList(styles,["-","-","-"]),llListFindList(styles,["-","-","-"])+2);
+    }
+    if (errorCheck) 
+    {
         i=0; l=llGetListLength(anData); integer anCount; string styleName; integer warned=FALSE;
-        while (i<l) {
-            if (llList2String(anData,i)!=styleName) {
+        while (i<l) 
+        {
+            if (llList2String(anData,i)!=styleName) 
+            {
                 styleName=llList2String(anData,i);
                 anCount=1;
                 warned=FALSE;
             } else {
                 anCount++;
-                if ((anCount>9) && !warned) {
+                if ((anCount>9) && !warned) 
+                {
                     warned=TRUE;
                     llOwnerSay("WARNING! Found more than 9 animations assigned to style "+styleName+" but only the first 9 can be shown. Please correct this (but this is a non-fatal error so the dance machine will still work)");
                 }
             }
             string name=llList2String(anData,i+1);
-            if (llListFindList(anData,[name])<i) {
+            if (llListFindList(anData,[name])<i) 
+            {
                 llOwnerSay("ERROR! The name "+name+" is being used to identify an pair of animations but is in conflict with another name -- a style name, other pair name, or individual animation name that isn't part of that pair. Please resolve this error and reset the controller (see instructions for more details about name restrictions).");
                 myState="ERROR";
             }
             name= llList2String(anData,i+2);
-            if (llGetInventoryType(name)!=INVENTORY_ANIMATION) {myState="ERROR"; llOwnerSay("ERROR! Unable to locate the animation "+name+" in inventory. Please either supply it or update the animation data notecard.");}
+            if (llGetInventoryType(name)!=INVENTORY_ANIMATION) 
+            {
+                myState="ERROR"; llOwnerSay("ERROR! Unable to locate the animation "+name+" in inventory. Please either supply it or update the animation data notecard.");
+            }
             name= llList2String(anData,i+5);
-            if (llGetInventoryType(name)!=INVENTORY_ANIMATION) {myState="ERROR"; llOwnerSay("ERROR! Unable to locate the animation "+name+" in inventory. Please either supply it or update the animation data notecard.");}
+            if (llGetInventoryType(name)!=INVENTORY_ANIMATION) 
+            {
+                myState="ERROR"; llOwnerSay("ERROR! Unable to locate the animation "+name+" in inventory. Please either supply it or update the animation data notecard.");
+            }
             i+=anStride;
         }
     }
@@ -350,12 +415,14 @@ doInitialize() {
         if (llGetSubString(note,0,lm)==prefixM) partnerM=[]+[note]+partnerM;
         else if (llGetSubString(note,0,lf)==prefixF) partnerF=[]+[note]+partnerF;
     }
-    if (randomizeNpcOrder) {
+    if (randomizeNpcOrder) 
+    {
         partnerM=[]+llListRandomize(partnerM,1);
         partnerF=[]+llListRandomize(partnerF,1);
     }
     npcMatch=[];
-    if (npcMatcherCard!="") {
+    if (npcMatcherCard!="") 
+    {
         if (llGetInventoryType(npcMatcherCard)!=INVENTORY_NOTECARD) llOwnerSay("WARNING: could not find the NPC matchmaker notecard \""+npcMatcherCard+"\" so no custom NPC assignments will be used");
         else {
             npcMatch=[]+llParseString2List(osGetNotecard(npcMatcherCard),["|","\n"],[]);
@@ -375,15 +442,19 @@ doInitialize() {
     if (llGetListLength(partnerF)==0) {myState="ERROR"; llOwnerSay("ERROR! No notecards were found with the specified female NPC prefix: "+prefixF);}
     if (llGetListLength(firstNameF)==0) {myState="ERROR"; llOwnerSay("ERROR! No female NPC first names were supplied");}
     if (llGetListLength(lastNameF)==0) {myState="ERROR"; llOwnerSay("ERROR! No female NPC last names were supplied");}
-}
-setPart(integer on) {
+}//end to initilise
+
+setPart(integer on) 
+{
     if(on && enableParticles) llParticleSystem([PSYS_PART_MAX_AGE,0.7,PSYS_PART_FLAGS,0|PSYS_PART_EMISSIVE_MASK|PSYS_PART_INTERP_COLOR_MASK|PSYS_PART_INTERP_SCALE_MASK|PSYS_PART_FOLLOW_SRC_MASK|PSYS_PART_FOLLOW_VELOCITY_MASK|PSYS_PART_TARGET_POS_MASK,PSYS_PART_START_COLOR,sparkleStartColour,PSYS_PART_END_COLOR,sparkleEndColour,PSYS_PART_START_SCALE,<0.05,0.05,0>,PSYS_PART_END_SCALE,<0.1,0.1,0>,PSYS_SRC_PATTERN, PSYS_SRC_PATTERN_EXPLODE,PSYS_SRC_BURST_RATE,0.1,PSYS_SRC_BURST_PART_COUNT,sparkleBurstCount,PSYS_SRC_BURST_RADIUS,2,PSYS_SRC_BURST_SPEED_MIN,sparkleBurstSpeed,PSYS_SRC_BURST_SPEED_MAX,sparkleBurstSpeed,PSYS_SRC_TARGET_KEY,llGetKey(),PSYS_SRC_ANGLE_BEGIN,1.55,PSYS_SRC_ANGLE_END,1.54,PSYS_PART_START_ALPHA,0.75,PSYS_PART_END_ALPHA,0.5]);
     else llParticleSystem([]);
 }
-setRot(integer on) {
+setRot(integer on) 
+{
     llTargetOmega(<0.0,0.0,-rpm*(float)on/60>,TWO_PI,1.0);
 }
-updateText() {
+updateText() 
+{
     if (myState=="READY") {
         setPart(TRUE);
         setRot(TRUE);
@@ -400,14 +471,18 @@ updateText() {
         else if (myState=="EDIT") llSetText(floatyText+"\nEDIT MODE...\nplease wait",<1,1,0>,1.0);
     }
 }
-integer agentPresent(key who) {
+
+integer agentPresent(key who) 
+{
     if (who==NULL_KEY) return FALSE;
     else if (who=="") return FALSE;
     else if (!osIsUUID(who)) return FALSE;
     else if (llGetAgentSize(who)==ZERO_VECTOR) return FALSE;
     else return TRUE;
 }
-integer objectPresent(key what) {
+
+integer objectPresent(key what) 
+{
     if (what=="") return FALSE;
     else if (what==NULL_KEY) return FALSE;
     else if (!osIsUUID(what)) return FALSE;
@@ -415,8 +490,7 @@ integer objectPresent(key what) {
     else return TRUE;
 }
 
-
-ProcessToucher() //all this was in touch_start after the lldetectdkey.
+ProcessToucher(key toucher) //all this was in touch_start after the lldetectdkey.
 {//1
 if (myState=="INITIALIZING") llRegionSayTo(toucher,0,"Sorry, currently initializing the dance machine. Please wait until it is ready, then touch again");
 else if (myState=="ERROR") 
@@ -460,13 +534,34 @@ else if (myState=="READY")
     }//5
 }//1
 
+InitListeners()
+{
+    myChannel= 0x80000000 | (integer)("0x"+(string)llGetKey());
+    RemoteChannelListen = llListen(RemoteChannel, "", NULL_KEY, "");
+    handle=llListen(myChannel,"",NULL_KEY,"");
+    llListenControl(RemoteChannelListen, TRUE);
+}
+
+ProcessRemoteToucher(string message)
+{
+    key toucher = (key)message;
+    ProcessToucher(toucher);
+}
+
 default
 {
+    changed (integer change)
+    {
+    if (change & CHANGED_OWNER) llResetScript();
+    else if (change & CHANGED_REGION_START) llResetScript();
+    }
+
     state_entry()
     {
         myState="INITIALIZING";
         llSetText(floatyText+"\nInitializing...\nplease wait",<0,1,0>,1.0);
-        setPart(FALSE); setRot(FALSE); myChannel= 0x80000000 | (integer)("0x"+(string)llGetKey()); handle=llListen(myChannel,"",NULL_KEY,"");
+        InitListeners();
+        setPart(FALSE); setRot(FALSE);  
         autoTimer/=2;
         doInitialize();
         dancers=[]; singlesUsers=[]; ballRezFor=[];
@@ -480,20 +575,31 @@ default
             updateText();
         } else llOwnerSay("Reached end of state_entry with unexpected state: "+myState);
     }
-    
+
     link_message(integer sender_num, integer num, string msg, key id)
     {
-        toucher = (key)msg;
-        //llOwnerSay("Debug Output: Toucher Key: " + (string)toucher);
-        ProcessToucher();
-    }    
+        key toucher = (key)msg;
+        ProcessToucher(toucher);
+    }
     
+    touch_start(integer num)
+    {
+    // -- key toucher = llDetectdKey(0);     Moved to the global variables so it can work with linked messages to. 
+    key toucher=llDetectedKey(0);
+    ProcessToucher(toucher); // ++ added by me as a new fuction so it can be shared with a linked message
+    // -- lots of code removed here and moved to the ProcessToucher() function/
+    }
+        
     timer()
     {
-        if (myState!="READY") { if (myState!="EDIT") llSetTimerEvent(0.0); return;}
+        if (myState!="READY") 
+        { 
+            if (myState!="EDIT") llSetTimerEvent(0.0); return;
+        }
         tickCouples=!tickCouples;
         integer i; integer t;
-        if (tickCouples) {
+        if (tickCouples) 
+        {
             integer l=llGetListLength(dancers);
             while (i<l) {
                 if (llList2Integer(dancers,i+AUTO)) {
@@ -508,7 +614,9 @@ default
                 }
                 i+=dancerStride;
             }
-        } else {
+        } 
+        else 
+        {
             integer l=llGetListLength(singlesUsers);
             while(i<l) {
                 if (llGetAgentSize(llList2Key(singlesUsers,i))==ZERO_VECTOR) {
@@ -551,20 +659,6 @@ default
         llResetScript();
         }
     
-    changed (integer change)
-    {
-    if (change & CHANGED_OWNER) llResetScript();
-    else if (change & CHANGED_REGION_START) llResetScript();
-    }
-
-    touch_start(integer num)
-    {
-    // -- key toucher = llDetectdKey(0);     Moved to the global variables so it can work with linked messages to. 
-    toucher=llDetectedKey(0);
-    ProcessToucher(); // ++ added by me as a new fuction so it can be shared with a linked message
-    // -- lots of code removed here and moved to the ProcessToucher() function/
-    }
-
     dataserver (key ball, string data)
     {
         list message=llParseString2List(data,["|"],[]);
@@ -730,14 +824,22 @@ default
     }
     listen (integer channel, string name, key who, string message)
     {
-        if (myState=="ERROR") {
+        if (channel == RemoteChannel && llGetOwner() == llGetOwnerKey(who))
+        {
+            ProcessRemoteToucher(message);
+        }
+        else if (myState=="ERROR") 
+        {
             if (who!=llGetOwner()) llRegionSayTo(who,0,"Sorry, the controller has encountered an error and needs to be reset before it can resume working. Please inform the owner");
-            else {
+            else 
+            {
                 llOwnerSay("Attempting script reset");
                 llResetScript();
             }
-        } else if (myState=="INITIALIZING") llRegionSayTo(who,0,"Sorry, the controller is re-initializing. You will need to start dancing again once it has finished doing so");
-        else if (myState=="EDIT") {
+        } 
+        else if (myState=="INITIALIZING") llRegionSayTo(who,0,"Sorry, the controller is re-initializing. You will need to start dancing again once it has finished doing so");
+        else if (myState=="EDIT") 
+        {
             if (who!=llGetOwner()) { llRegionSayTo(who,0,"Sorry, the controller has been switched into edit mode will be reset once the owner has finished making changes. Then you'll be able to dance"); return;}
             if (message=="SYNCH") doSynch(who);
             else if (message=="< PREV") {
@@ -771,20 +873,28 @@ default
                 osMessageObject(llList2Key(dancers,B2ID),"HIDE_BALL");
             }
             showOptions(who);
-        } else if (myState=="READY") {
+        } 
+        else if (myState=="READY") 
+        {
             if (message=="OOPS") return;
             else if (message=="GROUP") startGroupDancing(who);
-            else if (message=="SINGLES") {
-                if (llGetListLength(singlesStyles)==1) {
+            else if (message=="SINGLES") 
+            {
+                if (llGetListLength(singlesStyles)==1) 
+                {
                     singlesUsers=[]+singlesUsers+[who,llList2String(singlesStyles,0)];
                     startSingles(who,llList2String(singlesStyles,0));
                     llRegionSayTo(who,0,"You will start to dance momentarily...please touch me again to stop");
-                } else {
+                } 
+                else 
+                {
                     singlesUsers=[]+singlesUsers+[who,"NO_STYLE_SELECTED"];
                     showSinglesMenu(who,0);
                 }
                 return;
-            } else if ((message=="COUPLES") || (message=="NPC COUPLES")) {
+            } 
+            else if ((message=="COUPLES") || (message=="NPC COUPLES")) 
+            {
                 if (llListFindList(singlesUsers,who)>=0) {
                     llRegionSayTo(who,0,"Sorry, I seem to have you in my list of singles dancers. Please quit dancing first, then request a new couples dance");
                     showSinglesMenu(who,-1); return;
