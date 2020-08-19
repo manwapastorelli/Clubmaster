@@ -3,8 +3,8 @@
 This repository is a fork of the original clubmaster by Aine Caoimhe, it does not contain the animations shipped, just the lsl and notecards.
 
 Notecards have two extensions in this repository. 
-.xml is for XMLS style notecards - but should still be copy/pasted as notecards inworld
-.txt is for a text style notecard - just a notecard inworld 
+.xml is for XML style notecards - but should still be copy/pasted as notecards inworld
+.txt is for a TEXT style notecard - just a notecard inworld 
 
 Repository Branches:
 ====================
