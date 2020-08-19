@@ -1,0 +1,76 @@
+Ballroom 1|BeautifulDream|BeautifulDream (Female)|<-0.0625,0,0.0335>|<0,0,1.999>|BeautifulDream (Male)|<0.0313,0,-0.0076>|<0,0,0>
+Ballroom 1|Bite Me|Bite-Me (Female)|<0,0.015,-0.0411>|<0,0,0>|Bite-Me (Male)|<0,-0.014,-0.0017>|<0,0,0>
+Ballroom 1|Butterfly|The-Butterfly (Female)|<0.000000,0.019000,0.017300>|<0,0,0>|The-Butterfly (Male)|<-0.001100,0.021500,0.015700>|<0,0,0>
+Ballroom 1|Eternal Love|Eternal-Love (Female)|<0.000000,0.000000,-0.029500>|<0,0,0>|Eternal-Love (Male)|<0.000000,0.000000,0.041500>|<0,0,0>
+Ballroom 1|Evergreen|Evergreen (Female)|<0.000000,0.000000,0.040900>|<0,0,0>|Evergreen (Male)|<0.000000,0.000000,0.082900>|<0,0,0>
+Ballroom 1|FallinLove|FallinLove (Female)|<0.351000,-0.621000,-0.025700>|<0,0,49.247>|FallinLove (Male)|<-0.366000,0.637000,-0.088700>|<0,-0.0,0>
+Ballroom 1|Falling Deep|Falling-Deep (Female)|<0.062000,0.000000,-0.165100>|<12.447,3.771,16.593>|Falling-Deep (Male)|<-0.119000,-0.086000,-0.014100>|<0,0,0>
+Ballroom 1|Final Step|Final-Step (Female)|<-0.053000,0.000000,-0.046100>|<0,0,0>|Final-Step (Male)|<0.053000,0.000000,0.027400>|<0,0,0>
+Ballroom 1|Follow-Me|Follow-Me (Female)|<0.021000,0.000000,-0.006900>|<0,0,-0.0019>|Follow-Me (Male)|<0.012000,0.000000,0.038000>|<0,0,0>
+Ballroom 2|HeartBeat|HeartBeat (Female)|<0.100000,-0.155000,-0.015300>|<0,0,0>|HeartBeat (Male)|<0.086000,-0.137000,-0.011300>|<0,0,-2.002>
+Ballroom 2|Jive Star|Jive-Star (Female)|<0.000000,-0.045000,0.011200>|<0,0,0>|Jive-Star (Male)|<0.000000,-0.026000,0.070200>|<0,0,0>
+Ballroom 2|Kate|Kate (Female)|<0.054000,0.000000,0.011000>|<0,0,0>|Kate (Male)|<0.000000,0.000000,0.011000>|<0,0,0>
+Ballroom 2|Let It Rain|Let-It-Rain (Female)|<0.025000,0.023000,-0.032400>|<0,0,0>|Let-It-Rain (Male)|<-0.025000,-0.023000,-0.003400>|<0,0,0>
+Ballroom 2|Like The Sun|Like-The-Sun (Female)|<0.024000,0.017000,-0.083900>|<0,0,0>|Like-The-Sun (Male)|<-0.025000,-0.016000,0.006100>|<0,0,0>
+Ballroom 2|Love Fight|Love-Fight (Female)|<-0.012000,0.000000,-0.041900>|<0,0,0>|Love-Fight (Male)|<0.012000,0.000000,0.074100>|<0,0,0>
+Ballroom 2|Memories|Memories (Female)|<-0.018000,0.000000,-0.081700>|<0,0,0>|Memories (Male)|<0.000000,0.000000,-0.012700>|<0,0,0>
+Ballroom 2|OneMoment|OneMoment (Female)|<0.000000,0.000000,0.017300>|<0,0,-177.998>|OneMoment (Male)|<0.000000,0.000000,0.017300>|<0,0,-180.>
+Ballroom 2|Breathe|breathe (Female)|<0.000000,0.000000,0.017300>|<0,0,-177.998>|breathe (Male)|<0.000000,0.000000,0.017300>|<0,0,-180.>
+Ballroom 3|OnelastDance|OneLastDance (Female)|<-0.011000,0.000000,0.065000>|<0,0,-2.003>|OneLastDance (Male)|<0.000000,0.000000,-0.002000>|<0,0,0>
+Ballroom 3|Our Love|OurLove (Female)|<0.462000,-0.088000,-0.068200>|<6.,0,154.7541>|OurLove (Male)|<-0.484000,0.200000,0.051800>|<8.058,0.7711,0>
+Ballroom 3|Salsa 1|Salsa 1_f|<0.000000,0.000000,0.118300>|<0,0,0>|Salsa 1_m|<0.000000,0.000000,0.118300>|<0,0,0>
+Ballroom 3|Salsa 2|Salsa 2 (Female)|<-1.510000,0.085000,0.009300>|<12.167,-0.0,19.427>|Salsa 2 (Male)|<0.919000,0.000000,-0.008700>|<-0.999,-3.9959,-179.976>
+Ballroom 3|Salsa 3|Salsa 3_f|<0.000000,0.000000,0.118300>|<0,0,0>|Salsa 3_m|<0.000000,0.000000,0.118300>|<0,0,0>
+Ballroom 3|Salsa 4|Salsa 4_f|<0.000000,0.000000,0.118300>|<0,0,0>|Salsa 4_m|<0.000000,0.000000,0.118300>|<0,0,0>
+Ballroom 3|Night Dance|Night Dance_f|<0.182900,0.000000,0.081000>|<0,0,0>|Night Dance_m|<0.000000,0.000000,0.118300>|<0,0,0>
+Ballroom 3|Sky Duet|skyduet_f|<0.000000,0.000000,0.118300>|<0,0,0>|skyduet_m|<0.000000,0.000000,0.118300>|<0,0,0>
+Ballroom 3|Tease Me|Tease-Me-Please (Female)|<0.000000,0.000000,-0.061000>|<0,0,0>|Tease-Me-Please (Male)|<0.000000,0.000000,0.023000>|<0,0,0>
+Ballroom 4|The Shag|The-Shag (Female)|<0.021000,0.000000,-0.049500>|<0,0,0>|The-Shag (Male)|<-0.021000,0.000000,0.019500>|<0,0,0>
+Ballroom 4|Together|Together (Female)|<-0.081000,0.074000,0.009500>|<0,0,2.>|Together (Male)|<0.000000,0.059000,-0.007500>|<0,0,0>
+Ballroom 4|Tonight&Forever|Tonight&Forever (Female)|<0.000000,0.029000,0.037200>|<0,0,-180.>|Tonight&Forever (Male)|<0.000000,-0.028000,0.005200>|<0,0,178.001>
+Ballroom 4|Turn To You|Turn-To-You (Female)|<0.000000,0.015000,-0.037000>|<0,0,0>|Turn-To-You (Male)|<0.000000,-0.016000,0.027000>|<0,0,0>
+Ballroom 4|Two-Step|Two Step (Female)|<-0.054000,-0.033000,-0.012300>|<0,0,-180.>|Two Step (Male)|<0.054000,-0.041000,0.005600>|<0,0,-180.>
+Ballroom 4|Waltz|Waltz (Female)|<0.000000,0.000000,-0.101800>|<0,0,-90.>|Waltz (Male)|<0.000000,0.000000,-0.002800>|<0,0,-90.>
+Ballroom 4|Whatcha Got?|What-You-Got (Female)|<0.000000,0.000000,-0.081200>|<0,0,0>|What-You-Got (Male)|<0.000000,0.000000,-0.026200>|<0,0,0>
+Ballroom 4|With Me|WithMe (Female)|<-0.048000,0.000000,0.020400>|<0,0,2.>|WithMe (Male)|<0.000000,0.000000,-0.000700>|<0,0,0>
+Ballroom 4|Lambada|lambada (Female)|<0.000000,0.000000,-0.081200>|<0,0,0>|lambada (Male)|<0.000000,0.000000,-0.026200>|<0,0,0>
+Hearts As 1|Brazilian 2|Brazilian V2 (Female)|<0.173000,0.000000,-0.088200>|<0,-7.259,0>|Brazilian V2 (Male)|<-0.268000,0.000000,0.031800>|<0,0,0>
+Hearts As 1|Moon-Shine|Moon-Shine (Female)|<0.000000,-0.052000,-0.042500>|<0,0,0>|Moon-Shine (Male)|<0.012000,0.000000,-0.005600>|<0,0,0>
+Hearts As 1|Slow 1|Sensual (Female)|<-0.645000,-0.087000,-0.008700>|<0,0,0>|Sensual (Male)|<-0.186000,-0.117000,-0.046700>|<0,0,176.002>
+Hearts As 1|Slow 3|Two-Of-Us (Female)|<-0.012000,0.000000,-0.097800>|<0,0,0.0019>|Two-Of-Us (Male)|<0.012000,0.000000,0.029200>|<0,0,0>
+Hearts As 1|Slow 4|Slow 4 (Female)|<0.073000,0.000000,-0.004200>|<0,0,0>|Slow 4 (Male)|<-0.036000,-0.034000,0.011800>|<0,0,0>
+Hearts As 1|Slow 5|Slow 5 (Female)|<0.238000,-0.374000,-0.030500>|<0,0,0>|Slow 5 (Male)|<0.000000,-0.383000,-0.003500>|<0,0,0>
+Hearts As 1|Slow 6|Slow 6 (Female)|<-0.0197,0.0712,-0.0222>|<0,0,180.>|Slow 6 (Male)|<-0.139,-0.032,-0.0222>|<0,0,0>
+Hearts As 1|Slow 8|Slow 8 (Female)|<-1.0868,0.0,0.0215>|<0,0,0>|Slow 8 (Male)|<-0.1,0,0.0185>|<0,0,-179.96>
+Hearts As 1|Slow Waltz|Slow Waltz_f|<0.529900,-0.118800,0.118300>|<0,0,67.4987>|Slow Waltz_m|<0.475800,0.436500,0.118300>|<0,0,-118.125>
+Hearts As 2|Becoming|Becoming (Female)|<0.000000,-0.046000,0.000600>|<0,0,0>|Becoming (Male)|<0.000000,0.046000,0.008600>|<0,0,0>
+Hearts As 2|Brazilian 1|Brazilian V1 (Female)|<0.0771,0.0177,0.0246>|<0,-19.8839,3.355>|Brazilian V1 (Male)|<0.365,-0.086,0.0758>|<2.1941,-0.996,-179.217>
+Hearts As 2|Dance Dream|dance dream_f|<0.161000,0.044700,0.075400>|<0,0,-180.>|dance dream_m|<-0.146200,0.000000,0.118300>|<0,0,0>
+Hearts As 2|Slow Dip|dance I_f|<0.2086,0,-0.1453>|<0,0,0>|dance I_m|<-0.2086,0,-0.2002>|<0,0,0>
+Hearts As 2|Magic Dance|Magic Dance_f|<0.0165,0,-0.2754>|<0,0,0>|Magic Dance_m|<-0.0166,0,-0.2332>|<0,0,0>
+Hearts As 2|Nuzzle|Slow Dance_f|<0.120800,-0.187000,0.040600>|<0,0,0>|Slow Dance_m|<-0.250000,0.000000,0.118300>|<0,0,0>
+Hearts As 2|Two Step|Slow_dance_01_f|<0.255300,-0.277100,0.095800>|<0,0,-180.>|Slow_dance_01_m|<0.000000,0.000000,0.118300>|<0,0,0>
+Hearts As 2|Take Me|Take me_f|<0.000000,0.000000,0.118300>|<0,0,0>|Take me_m|<0.000000,0.000000,0.118300>|<0,0,0>
+Hearts As 2|Cherished|Cherished_f|<0.045900,0.076300,0.151200>|<0,0,59.>|Cherished_m|<-0.045900,-0.076300,0.118300>|<0,0,59.>
+Rockin'|Swingin'|swingin_f|<0.000000,0.000000,0.118300>|<0,0,0>|swingin_m|<0.000000,0.000000,0.118300>|<0,0,0>
+Rockin'|The Dip|The Dip_f|<0.000000,0.000000,0.118300>|<0,0,0>|The Dip_m|<0.000000,0.000000,0.118300>|<0,0,0>
+Rockin'|May 4|May 4 (Female)|<-0.200000,0.400000,-0.189200>|<0,0,90.>|May 4 (Male)|<0.200000,-0.200000,-0.069200>|<0,0,92.>
+Rockin'|Red Chill|RedChill (Female)|<-0.735000,0.861000,-0.086200>|<0,0,90.>|RedChill (Male)|<-0.300000,0.830000,-0.047200>|<0,0,-90.>
+Rockin'|Shamo|Shamo (Female)|<0.000000,0.140000,-0.169100>|<0,0,90.>|Shamo (Male)|<0.042000,-0.141000,-0.044000>|<0,0,92.>
+Rockin'|Sugar Shuffle|Sugar Shuffle (Female)|<1.088700,0.300000,-0.091500>|<0,0,-180.>|Sugar Shuffle (Male)|<-1.087300,0.300000,0.107500>|<-3.281,0.115,0>
+Rockin'|You and I|Yeah And (Female)|<-0.500000,0.000000,-0.007800>|<0,0,0>|Yeah And (Male)|<0.500000,0.000000,0.120200>|<0,0,-180.>
+Rockin'|ClapStep|ClapStep (Female)|<-0.039000,-0.075000,-0.035000>|<0,0,0>|ClapStep (Male)|<0.053000,-0.068000,0.006000>|<0,0,0>
+Rockin'|Swept Away|Sweptaway_f|<0.000000,0.000000,0.060300>|<0,0,0>|Sweptaway_m|<0.000000,0.000000,0.118300>|<0,0,0>
+Quark|Eclipse|eclipse_f_29.9|<0.2561,0.2715,-0.4757>|<0,0,0.7071>|eclipse_m_29.9|<0.1701,0.0694,0>|<0,0,0.7071>
+Quark|Eternal|eternal_f_29.9|<1.3392,-0.0628,-0.1109>|<0,0,-0.7071>|eternal_m_29.9|<0.1701,-0.0437,-0.2212>|<0,0,-0.7071>
+Quark|FaitAco|faitaccompli_f_29.9|<0.4333,0.0544,0>|<0,0,0.7071>|faitaccompli_m_29.9|<0.1701,0.0694,0>|<0,0,0.7071>
+Quark|Flame|flame_f_29.9|<1.1196,-1.8201,0>|<0,0,-180.>|flame_m_29.9|<0.8627,-1.6305,0>|<0,0,0>
+Quark|LindyHop|Lindy Hop7-F 27|<1.497,-0.1584,0>|<0,0,180.>|Lindy Hop7-M 27|<0,0,0>|<0,0,1.0001>
+Quark|Promise|Promise_f_29.9|<-0.1548,-0.0861,-0.1014>|<0,0,0>|Promise_m_29.9|<0.1701,0.0694,-0.1014>|<0,0,0>
+Quark|Slow2|slowdancev2_f_29.9|<0.1767,0.1383,0>|<0,0,-0.7071>|slowdancev2_m_29.9|<0.1701,0.0694,0>|<0,0,-0.7071>
+Quark|Slow3|slowdancev3_f_29.9|<0.0496,0.1053,-0.0904>|<0,0,-0.7071>|slowdancev3_m_29.9|<0.1701,0.0694,-0.0904>|<0,0,-0.7071>
+Quark|Slow4|slowdancev4_f_29.9|<0.2457,0.2021,-0.1259>|<0,0,-0.7071>|slowdancev4_m_29.9|<0.1701,0.0694,-0.1259>|<0,0,-0.7071>
+Quark|Slow8|slowdancev8_f_29.9|<0.3624,0.215,-0.0624>|<0,0,-0.7071>|slowdancev8_m_29.9|<0.1701,0.0694,-0.0624>|<0,0,-0.7071>
+Quark|Slow13|slowdancev13_f_29.9|<0.5763,0.0323,0.0823>|<0,0,-0.7071>|slowdancev13_m_29.9|<0.1701,0.097,0>|<0,0,-0.7071>
+Quark|Charlston|Tandem Charlston2-F 25.1|<0.388,0.3035,0>|<0,0,-180.>|Tandem Charlston2-M 25.1|<0.1701,0.0694,0>
+Quark|Ballroom 1|ballroomdance1_f_24.4|<0,0,0>|<104.9564,48.6986,21.555>|ballroomdance1_f_24.4|<0,0.015,-0.0411>|<0,0.014,0.0017>

@@ -1,0 +1,405 @@
+PARAMOUR CLUBMASTER DANCE CONTROLLER SYSTEM v2.0
+Created by Aine Caoimhe Sept 2014-Jan 2016
+
+********************
+***** OVERVIEW *****
+********************
+
+The Clubmaster Dance Controller System is an all-in-one dance controller for high traffic clubs. The controller is a single object with a single script that does all of the following:
+
+- *NEW v2.0* simultaneously acts as a group dance controller with extremely high capacity and full support for externally-controlled NPCs
+- simultaneously acts as a singles dance controller with extremely high capacity (100 or more avatars at once!) - like the popular "Tasha's Dance Ball"
+- simultaneously acts as a couples dance server with extremely high capacity (25 or more couples at once!) - like the popular "Franks Dance Machine Server"
+- simultaneously allows an avatar to request an NPC dance partner for couples dances if they don't have a "real" partner
+- as of v1.1 the NPC partner can be randomly assigned from a pool of suitable NPCs and assigned random first and/or last name
+- *NEW v2.0* the lists of available NPC partners are built at time of initialization, no longer requiring manual script edits to add or remove NPCs
+- *NEW v2.0* allows a custom NPC partner to be assigned as the first partner rezzed for a specific user, even if not in the list of regularly available NPCs
+- *NEW v2.0* supports changes to Opensim 0.9 for NPC parcel permissions without breaking compatibility with Opensim 0.8.x
+- simultaneously allows singles dances to be separated into a variety of "styles" for a dancer to choose from
+- *NEW v2.0* the number of different singles dance styles that can be made available is almost unlimited
+- *NEW v2.0* one of the singles styles is assigned as the group style for all dancers who select the GROUP option
+- uses an "auto" mode for singles dancers, automatically changing dances every couple of minutes (frequency is a setting that can be changed)
+- offers the option for couples to also use an auto mode for their dances rather than continually making their own selections
+- has working synch for couples
+- *NEW v2.0* has a global z-axis adjustment setting for couples dances to accommodate the differences between Opensim 0.8.x and Opensim 0.9
+- has working z-adjust for couples
+- has a far more intuitive set-up for owners wanting to add new dances
+- *NEW v2* initialization has optional ability to disable error-checking to support change in simulator behaviour in Opensim 0.9 and speed up ball reset
+- runs with extremely high reliability and efficiency and a minimum memory/CPU load during use, minimizing the impact on the region server during peak traffic times
+- *NEW v2.0* redesigned danceball and poseball objects with better visibility to viewers with low LOD settings and reduced LI for grids that use LI.
+
+While this may seem to good to be true, I can assure you it works perfectly but there is one caveat: it will only work in a region where the script owner has nearly full OSSL function access and, depending on location, may also require some additional script-engine settings adjustments so it is best suited to people who host their own simulators or who are on friendly terms with the person who does. It WILL NOT WORK in a region where only LSL scripts are permitted.
+
+One other caveat: NPCs are "local" to the grid they were created on. This means that if you obtained this product via hypergrid the included NPCs are very unlikely to display correctly and you will need to obtain or create ones that are "local" to your home grid (see below).
+
+A huge thank-you to Dorothea Lundquist who created the CE NPC dancers included with some versions of this product, and to the many friends who patiently helped to test it and supply feedback on its features and ease of use.
+
+Aine
+
+*************************************
+***** INITIAL SET-UP AND BASIC USE *****
+*************************************
+
+If you received this as a package from me all you need to do is:
+
+1. Ensure the region is set up correctly for the script to function (see REGION SETUP section). DO THIS FIRST!
+
+2. Rez the controller. It should automatically begin to initialize and shortly thereafter will tell you it's ready (the time required depends on the region server). You can place it anywhere you like since none of its functions depend on its location.
+
+3. A person who wants to dance then clicks on the controller. A dialog menu will offer a choice between "GROUP", "SINGLES", "COUPLES", or "NPC COUPLES".
+
+- selecting "GROUP" will assign that person to the controller's group dance and they'll begin to dance immediately with no further dialogs. When they wish to stop dancing, they simply touch the danceball again.
+
+- selecting "SINGLES" will assign that person to the controller's singles dance system and will present the dancer with a choice of dance styles. Upon making that selection they will begin to dance and will advance to the next dance animation in that style every couple of minutes. A different user can select a different style and both users will continue to cycle through the dances in their respective style choices. The dancer can choose a different style at any time. To stop dancing, press "QUIT".
+
+- selecting "COUPLES" will rez a pair of poseballs very near the user - one pink and one blue. The user should sit on one and their partner should sit on the other. Upon sitting, the dancer is given a choice of couples dance styles and then, upon selecting one of those, a list of animations in that style. Once one of the two selects an animation, they will both begin dancing. Either partner may change to a different animation at any time. They can use the OPTIONS menu to enable vertical height adjustment of their avatar or to enable/disable AUTO mode. To stop dancing they can stand or QUIT at any time. If a poseball is unoccupied for too long (by default 30 seconds although you can set it to a shorter or longer delay) it will self-destruct and the couple will be removed from the controller.
+..... as of 1.2, the AUTO/MANUAL button also appears on the main initial menu for couples. To access the options menu you will need to be in manual mode.
+......as of v2.0 the QUIT button now also appears on the Options menu for couples
+
+- selecting "NPC COUPLES" will do the same as couples. When the user sits, a suitable NPC will immediately appear and sit on the unoccupied ball and it will work just like the regular couples system does (except, of course, the NPC won't make any menu selections). When the user stands or selects QUIT, the NPC and poseballs are automatically removed. The OPTIONS menu also contains two buttons allowing the use to request a different male or female dance partner.
+
+4. If you obtained this danceball from another grid it is very likely that some or all of the included NPCs will display incorrectly (without textures, sculpty shapes and/or mesh attachments). Please see if there's a version available that contains "local" NPCs for your grid. Currently I supply an OSGrid/Metro version and many of those NPCs will work in other grids. Failing that, you may need to make your own NPCs which is quite easy.
+
+************************
+***** CUSTOMIZATION ****
+************************
+
+At the top of the main controller script are a set of variables that you can adjust to suit your situation. There is also a script inside the poseball but it doesn't contain any user variables (any it needs are passed to it by the main controller script). Further customization would require directly editing the script which I would discourage for anyone without a fairly high level of scripting expertise. While some methods I've used may seem odd at first glance (particularly list handling) they're done in this way to minimize memory use or optimize processing (if there was a choice between those, memory consumption trumped speed).
+
+The user settings are split into two sections: Basic and Advanced. The Basic ones that anyone should feel comfortable adjusting, even with little or no scripting experience. The Advanced ones assume at least a basic scripting knowledge but should only rare need to be changed from their defaults.
+
+** BASIC SETTINGS **
+
+Line 12: The singles dance style used for the GROUP dance option is set on line 12 of the script. This must be the exact name of one of the singles dance styles. If you leave it empty (just "") or you specify a style that doesn't exist, the ball will detect this and the first singles style will be used instead.
+
+Line 13: During initialization the danceball does extremely basic error-checking for the most critical aspects of operation. You can optionally enable a deeper, more thorough set of error-checks where it confirms a wide variety of other things but may take significantly longer to initialize. On some simulators this could exceed the maximum allowed time for the process to be done and result in the danceball never completing initialization. If you're using a Clubmaster system supplied by me, you can safely leave the errorChecking set to FALSE. If you make custom edits of your own to the singles dances, couples dances, or contents, and the ball doesn't appear to be working correctly, you can set it to TRUE to see if the deeper checks can detect the error.
+
+Lines 14-16: These three settings determine whether to display floating text above the danceball, what text to begin with, and what colour the text should be.
+
+Line 17: Determines whether to randomize the order of dances within each style of singles dances.
+
+Line 18: Determines whether to randomize the order of the NPC lists.
+
+Line 19: Determines how often to advance to the next dance for the group dance, singles dances, and any couples using AUTO mode. To spread out the load on the simulator, group and singles dance changes are done at a different time than the changes to couples dances. With the default setting of 120 seconds, the couples change occurs one minute after the group and singles dances change.
+
+Line 20: Depending on the version of Opensim used by your region, you may notice couples consistently dancing either too high above the floor, or with their feet embedded in the floor. You can make a global adjustment to the vertical locations for all couples dances by adjusting the zGlobal value. If you're using Opensim 0.9 you will very likely need to change this from its default value to something like -0.15 (the exact value is unknown at this time and could easily be changed yet again at any point in the future...you'll simply have to experiment). Please note that even with this setting, couples who are very tall, very short, or differ greatly in size from one another will probably still not be positioned very well and will need to use the feature to adjust their own heights during use (in the Options menu). This only affects couples dancers...singles and group dancers cannot be positioned because they're using their normal physics to stand on the ground.
+
+** ADVANCED SETTINGS **
+
+Line 26: The name of the notecard containing all of the singles dance style definitions (see the "Adding/Removing Animations" section below).
+
+Line 27: The name of the notecard containing all of the couples dance definitions and positions (see the "Adding/Removing Animations" section below).
+
+Line 28: The name of the (optional) NPC Matchmaker notecard that lists users and their preferred NPC dance partner (see the "NPC Matchmaker" section below).
+
+Line 29: You should never need to change this line but it controls the stand animation used a couples dance user when when waiting for their partner to sit. I supply a basic "stand_m" and "stand_f" animation for this, but you can put your own alternate animation into the ball instead, and if you do you'll need to identify them in this line and determine their appropriate position/rotation. DO NOT change the first to elements of the line...only the animation names and pos/rot.
+
+Line 30: By default the poseballs will self-destruct after 30 seconds if someone hasn't sat on them. If you wish to change this to a different delay time, set it here.
+
+Line 31: The name of the poseball in the danceball's inventory. If you want to use your own custom poseball you can do so but will need to identify it here if you use a different name.
+
+Line 32: When someone uses the zAdjust feature for couples dance position adjustment, this value determines how large each step is in the z-axis direction. the default value should suffice for most applications since other factors influence this enough to make any finer adjustment pointless.
+
+Line 33/Line 36: During initialization, the danceball looks at each notecard in inventory and checks to see if it begins with the string identified in these two variables. If it does, it is assumed to be a NPC appearance notecard and is added to the corresponding list of "male" or "female" NPCs that can be rezzed as partners. You can use any string you like provided your NPC appearance notecards follow the same nomenclature. This is actually a very handy feature for setting up multiple sets of NPCs in a danceball (each with a different prefix string) and then simply set these to the prefix you want to load.
+
+Lines 34-35, 37-38: This determines the names given to the NPCs. If you wish, you can supply more than one first and/or last name and when the NPC is rezzed the name will be picked randomly from the ones in the list.
+
+Lines 39: Determines whether the main danceball and the poseballs use the supplied particle effect.
+
+Lines 40-43: Can be used to adjust the particle parameters for the main danceball only (the poseball always uses its own preset values if they're enabled and you'd have to edit that manually in the poseball script to change them)
+
+Line 44: Determines how fast the main danceball should rotate on its axis in revolutions per minute. A value of 0.0 will stop it from rotating.
+
+********************************************
+******* ADDING / REMOVING ANIMATIONS ********
+********************************************
+
+You can add or delete animations to either the singles or couple portion of the system by editing the two data notecards. One card contains ALL the data used for couples dances and the other contains all the data for singles dances (it's not split across multiple cards the way Frank's is). If you delete an animation, delete its corresponding entry in the singles or couples notecard.
+
+Single dances can be added by dropping the animation into inventory and then adding a corresponding line to the singles data notecard. Each line contains:
+- name of the singles dance style it should belong to (keep these names short so they fit on a button)
+- a pipe symbol (|)
+- exact name of the animation
+- DO NOT ADD ANY EXTRA SPACES BEFORE OR AFTER THE PIPE SYMBOL OR AT THE BEGINNING OR END OF A LINE!!! If advanced error-checking is turned off these errors will not be detected or fixed. If error-checking is turned on they'll be fixed in the script's memory but there is no warning about it nor will it correct the notecard. This could result in animations not playing correctly.
+
+You can change style names or split existing styles into smaller groups simply by editing the names. As of this version of the danceball there is no maximum to the number of different style names but they must all be unique from any other style name used in either the singles or doubles notecard and should not be the name of a specific animation in the inventory either. Each style can contain any number of animations. You can assign an animation to two (or more) different styles by making two separate entries for it.
+
+Couples dances require more information and have additional limits. Each line contains a number of pieces of information, each separated by a pipe symbol (|):
+- name of the couples style it should belong to (keep these names short enough to fit on a button)
+- name to use for the dance button
+- exact name of the inventory animation to be played by the female ball (when positions aren't swapped)
+- the relative position it should be placed at
+- the relative rotation is should be placed at (as a vector)
+- exact name of the inventory animation for the male ball
+- its relative position
+- its relative rotation (as a vector)
+
+Relative positions and locations are based on the region location of whoever touches the controller to first initiate the couples dance and doesn't change. Since setting these relative values is complicated, when you add a new dance simply give all for of them the value <0,0,0> (don't use the ZERO_VECTOR constant since these are read in as test string!). Then when the controller isn't being used by anyone else, activate it in couples dance mode (or with NPC couples) and start playing that new dance. Then in the OPTIONS menu select EDIT.
+
+Once in edit mode you'll see some handles appear for each dancer. Use these (in viewer edit) to position the couple correctly. Then press "SAVE" and the new relative position data will be stored to your notecard.
+
+For convenience, you can also set up or adjust more dances by using the <PREV or NEXT> keys to move on to the next dance. It will cycle through every dance in the notecard (not just the ones in this style) while storing any update position data to local memory. Any time you press SAVE all current data is stored in a batch (but not until then so SAVE regularly!)
+
+While editing a dance, you can click "REVERT" to position the couple back to the stored position of the current dance but this doesn't affect any other adjustments you made to other dances. Once you SAVE there is no way to revert, though.
+
+If you leave edit mode any unsaved new positions will still be held in memory and be used when playing, but they are not saved to notecard and will be lost the next time it is reset (when the region restarts or you manually reset it) so be sure to SAVE before leaving edit if you want them stored permanently.
+
+***********************************
+***** ADDING / REMOVING NPCs *******
+***********************************
+
+NPC lists are now built during initialization instead of you having to manually edit the lists in the main script. To do this, the danceball expects NPC notecard name to begin with a specific prefix. By default this is .NPCM for a male NPC and .NPCF for a female one, but you can change this in the script settings if you'd prefer to use something else. NPCs that I supply in the danceball are all correctly named.
+
+*** TRANSPLANTING NPC NOTECARDS FROM YOUR v1.x VERSION ***
+
+If you've already made a set of custom NPCs for your v1.x danceball you can easily transplant them to your new v2.x system as follows:
+- Select your old danceball in edit mode and go to the inventory tab
+- Copy your NPC notecards into a folder in your own personal inventory
+- While they're still in your own inventory, rename the male ones to begin with ".NPCM" (not including the quotation marks but including the dot at the start) and the female ones to begin with ".NPCF"
+- Drop these renamed cards into your new v2.x danceball
+- Press the "reset scripts" button to have the danceball reinitialize and pick up the changes
+- Dance your heart out!
+
+*** ADDING A NEW NPC NOTECARD **
+
+You can now easily add a new NPC by using any of the normal NPC appearance notecard creation utilities (you can get one free from my shop in RefugeGrid) which will hand you the notecard. Rename this card to begin with either .NPCM or .NPCF and drop it into the danceball's inventory. Then reset the script. You no longer have to edit the lists in the script itself.
+
+*** REMOVING A NPC ***
+
+You can now easily remove a NPC from the danceball by opening its inventory, deleting the appearance notecard, and then resetting the script. You no longer have to edit the lists in the script itself.
+
+Make sure there's at least one NPC of each gender available or the ball will warn you.
+
+** NIFTY TIP **
+
+If you like to have different sets of NPCs available for different events, you can easily set up the danceball to make it easy to switch between them. Just use a unique prefix to identify the male and female NPCs for each of those sets (for instance ".formalMale", ".formalFemale", ".casualMale", ".casualFemale") when you're naming your notecards. Then in the script, just set the prefix string in lines 33 and 36 to match the set you want to use this time and reset the script.
+
+***********************************
+***** NPC MATCHMAKER OPTION *******
+***********************************
+
+This is a new feature in version 2 of the danceball and allows you to have a specific NPC always be the first partner rezzed for a specific user. If they want a different NPC partner they can use the "NEW M" and "NEW F" buttons in the Options menu to access all the other NPCs. To do this, the danceball needs to be set up with that data which is done by looking for a matchmaker notecard.
+
+In line 28 of the script you can identify the name of a special notecard to read that contains "NPC matchmaker" information. If you don't specify one, or the one you've specified can't be found in inventory, it is ignored (but you'll see a notice about it during initialization). If it's found, the contents will be read and stored in memory.
+
+In the notecard, each line should be in the format:
+- UUID of the person you want to assign a special NPC for
+- immediately followed by the pipe symbol (|) with no space before or after it
+- followed by the exact name of the NPC notecard to use as that person's partner
+
+The NPC you identify here can be any valid appearance notecard in inventory...it can be one that has a name that isn't part of the regular NPCs available, making it a custom NPC only available to that user. If the notecard you specify can't be found in inventory, it is ignored and a regular NPC is rezzed for that user instead.
+
+Example:
+Let's pretend that my UUID is "12345678-90ab-cdef-1234-567890abcdef" and that when I use the NPC partners I always want the one with the appearance notecard called "Aine's Partner". My matchmaker notecard would therefore include the line:
+12345678-90ab-cdef-1234-567890abcdef|Aine's Partner
+
+Now, whenever I use NPCs it won't matter which of the two poseballs I sit on...that NPC will always be the one that is rezzed for me to dance with even though its notecard name doesn't have the prefix I've assigned for the normal male and female NPC cards. If I want to change to use one of the other NPCs instead, I can go into the OPTIONS sub-menu of the dialog and pick "NEW M" or "NEW F" to replace my NPC with the next one from the "public" list, but after that it would only give me access to the ones in the regular public list on future swaps. To get my own custom partner back I'd need to stand up and start again.
+
+Whenever you add or alter this notecard you will need to reset the main script to have it pick up these changes so it's something you'd set up ahead of time and probably limit to only yourself and perhaps a few regular guests.
+
+The only error-checking done is to ensure that the specified notecard actually exists in inventory during initialization. You'll be notified it it isn't and it will be ignored (using the "public" NPCs instead). If a user's UUID is listed twice, it will rez the NPC associated with the first instance of it in the notecard. If you delete the NPC notecard without resetting the script, this WILL NOT be detected at time of rez and could cause issues so always be sure to reset the master script any time you make any inventory changes (preferably with error-checking enabled, too).
+
+I had originally hoped to provide a more automated and flexible method for doing this (and even letting users select and store their own, in real time) instead of the owner having to manually edit the  notecard. Unfortunately it resulted in too much additional complexity and performance degradation to the danceball for this to be practical. In future, if I can come up with an efficient method for doing so I'll consider adding it.
+
+
+***************************************************
+***** POSSIBLE ERRORS/PROBLEMS AND SOLUTIONS  *****
+***************************************************
+
+"My NPCs have no textures/missing textures/wrong textures!"
+
+NPC appearance notecards work by storing the UUID of each asset worn at the time the card is created and then, when the NPC is created, it retrieves those assets just like it does for avatars. If the region has that UUID cached it can supply it, otherwise if attempts to fetch it from the grid asset server. Normally this will work without any problems however a slow or overloaded asset server may have difficulties which can result in a texture failing to display.
+
+More likely, though, the appearance notecard was made on a different grid and then sent via hypergrid to wherever you are. Your grid doesn't recognize the UUID since it isn't in it's database of assets, and it has no way of knowing what the source grid is so it can't make an attempt to fetch the asset from source either. Even more rarely, the wrong texture could display if your grid has something different stored using that UUID. Unfortunately in all of those cases it means the NPC won't display properly for you unless your grid can somehow learn that UUID and store the asset (an IAR or OAR imports that UUID, or you buy that product while HG shopping) or if someone visits your region via HG while wearing something that uses that UUID your region will cache it (but when the region cache is cleared it will be lost again).
+
+Sadly, this means that you will need to use only "local" NPCs created on the same grid. Making an NPC is easy though (see Customization section above). 
+
+***
+
+"But wait...I see the NPC just fine but someone else doesn't"
+
+That's because you have the asset stored in your viewer's cache so it knows how to display it even though the region/grid doesn't. The person who can't see the texture doesn't have it in their viewer cache.
+
+***
+
+"I'm seeing some pop-up script error messages and it isn't working!"
+
+If you see any script error messages on your screen immediately after you rez the controller the most likely cause is that your region isn't set up correctly to allow you to use the necessary OSSL functions (see below).
+
+***
+
+"The danceball is working but once in a while I see a script error message pop up"
+
+This is one of those not-a-bug bugs that can turn a script-writer into an alcoholic. It's the result of the simulator's (completely necessary) asynchronous handling of things that are happening in the region and can very occasionally result in a sequence of steps not being executed in the order they're supposed to be. I have attempted to "trap" these to the greatest degree possible with additional checks being done before sending messages to non-existent poseballs or users, but in spite of this there can be rare instances where it still can't prevent it from happening and an error message will be generated. Usually it's because the sim is extremely busy processing something else (a login or inbound teleport being the most probable).
+
+Because of the way my script isolates those calls, it will not result in the script stopping or crashing and can safely be ignored. The danceball will continue to work properly.
+
+***
+
+"I'm not seeing any errors but nothing happens when I rez it and it's not working"
+
+If nothing happens when you first rez the object (and have waited the 10-20 seconds for it to reset and tell you it's ready) it may be due to simulator settings that require it to be recompiled first. Different viewers have different methods of doing this so you may need to consult your viewer help to find out how. In Firestorm you can select the controller in edit mode and from the viewer menu select:
+    Build > Scripts > Recompile Scripts (LSL)
+or you can right-click on the controller and use the radial menu
+    More > More > Scripts > Compile (LSL)
+
+***
+
+"The couples poseballs rez briefly at the controller's location and then tell me that I'm too far away and destroys them again"
+
+This can happen in 2 cases:
+
+1 The toucher is more than 64m away from the dance machine. This is a hard-coded limit in the poseball script to prevent balls becoming orphaned. In theory communication between the poseball and controller should be region-wide so if you wish to you can manually edit the poseball script to change this (or even disable the check).
+
+2. I have had a couple users report this issue when the simulator is installed on a computer running a language version that uses a comma as the decimal separator (so 1.0 would be reported as 1,0). Many LSL functions appear to have difficulty handling this format, particularly with vectors and rotations, so it would be advisable to alter the computer's language to US or change the decimal separator mapping to use a decimal point instead.
+
+***
+
+"The group and singles works fine, but when I try to use Couples or NPC Couples the poseball doesn't get rezzed or is stuck at the location of the main danceball."
+
+This can happen occasionally as a result of region settings and/or HG asset transfer bugs. One day perhaps these will finally be fixed in Opensim's code, but until then it will occasionally be necessary to recompile the script inside the poseball which is a bit trickier than recompiling the main danceball's script. Follow these steps to do so:
+
+1. Open the main danceball's inventory and take a copy of the "~club poseball" object out of it and into your own inventory.
+2. WEAR the poseball (on your left hand or wherever you like)...DO NOT rez it to the ground
+3. Open the poseball's inventory where you'll see its script.
+4. Open the poseball's script and add a space to the end of a line, then remove it again. This should allow you to save the script again (viewers usually won't let you save until some change has been made, even if you then undo the change)
+5. You should see the script say that it has been saved and is running.
+6. Un-wear the poseball.
+7. To test whether it is now working correctly, rez it to the groud. It should instantly self-destruct with a message complaining about not having been rezzed by the main controller (that's why we had to wear it when doing the script recompile...it knows not to self-destruct when you're wearing it).
+8. Now delete the original poseball from the main danceball's inventory.
+9. Then place the newly recompiled poseball into the main danceball inventory.
+
+You should now have a perfectly working danceball for couples too.
+
+***
+
+"When I use NPC couples the NPC rezzes but doesn't sit on the poseball...instead, it goes hurtling off to the edge of the sim and won't do anything."
+
+This is a change introduced by the Opensim 0.9 development branch and is due to the parcel having its access restriction set to group. Because the NPC isn't a member of the group, the parcel tries to evict it by pushing it out of the parcel. They consider this a "feature," not a bug.
+
+For versions of 0.9 prior to Jan 5, 2016 there is no fix. NPCs will not work unless you open the parcel to public access.
+
+For versions of 0.9 after that date I was able to institute a fix (which happens automatically in the script) but you need to make sure that you assign the main danceball to the same group that is granted access in the parcel. Once you do that, NPCs should work properly.
+
+This issue doesn't affect people using Opensim 0.8.x and I made my fix for the 0.9 users still be compatible with the earlier code so you shouldn't see this occur and NPCs should continue to work perfectly for you as they did with all previous versions of my danceball.
+
+If you experience any issues with this behaviour that the above doesn't solve on a region running under 0.9, please address your support requests to the Opensim developers via Mantis since they're the ones who changed the code and should be able to supply you with the necessary supporting documentation or fix.
+
+****************
+***** BUGS *****
+****************
+
+I take a lot of pride in only releasing as bug-free a product as I possibly can. For 99% of my users it will work flawlessly straight out of the box.  I have tested this system under very heavy load and with a large number of users to confirm that all of its functions are working correctly.
+
+That said, there may be a few special cases I haven't anticipated or encountered yet that could result in odd behaviour or even a script failure so if you experience one and are able to tell me how to reproduce it, please do! I'll happily fix it.
+
+You can usually reach me by IMing me in RefugeGrid (HGTP to RefugeGrid.com:8002 then IM Aine Caoimhe). If I'm not there please leave me a notecard message detailing the problem you're encountering. Please include your name and the HG address for the grid you're from since that isn't always accurately stored in IMs so I might not otherwise know who is IMing me or where they're from, making it impossible to assist you. I can also be contacted on G+ at https://plus.google.com/u/0/114092393572298640871/posts and you may find additional information and tips by checking my blog at http://ainetutorials.blogspot.ca/
+
+For changes in Opensim 0.9 that might break existing functionality and cause the Clubmaster system to stop working correctly, please contact the Opensim developers directly for support since they should be aware or what portions of code have changed and whether it is possible to adapt existing Opensim content to continue working.
+
+*************************
+***** REGION SET-UP *****
+*************************
+
+Before you will be able to use this system you must ensure that OSSL functions are enabled in the region, that the script-owner has permission to use the necessary ones, and that NPCs are also enabled in the region. In larger club venues it may also be necessary to increase the range both for functions and chat to enable them to work at those greater distances. All of these are parameters that must be set in the Opensim ini files so this is something that must be done by someone with access to the simulator configuration files.
+
+I used to supply detailed information on how to do this, however there have been a variety of changes to Opensim configuration in 0.8.1 and 0.8.2, and yet again in 0.9 (and possibly even more to come in the future) so it's almost impossible to supply useful information here beyond general instructions. Your region administrator will need to consult the appropriate Opensim documentation (where available) for their installation to determine which of the ini files is being used and needs adjustment.
+
+Chat distance settings are in Opensim.ini in the [CHAT] section. I would suggest a value in the 128m range or more for larger venues (with the added benefit that people will be able to see chat from other people if they're further away).
+
+Script distance settings are normally set in Opensim.ini [XEngine] section but can also be overridden in osslenable.ini. If you use osslenable.ini make sure it isn't overriding the value you set in Opensim.ini. The variable is called "ScriptDistanceLimitFactor" and in most cases it's perfectly fine to use a value of 20.0 (which the Diva distro sets by default).
+
+NPCs need to be enabled in the Opensim.ini [NPC] section and in version 0.9 there are other new settings there as well which generally won't impact my danceball script but if Opensim developers continue to add more and use non-legacy default values it's quite possible that this could break things in the future if set incorrectly. You'll need to consult their documentation or ask them for support since they should be aware of what changes they've made and how to set them to avoid breaking existing scripts.
+
+For OSSL script functions, your installation will either enable and set permissions for them  directly in Opensim.ini in the [XEngine] section or in a separate file in the config-include folder called "osslenable.ini". The default values being supplied here seem to be in constant flux in recent versions of Opensim so I can't guess what yours will be nor can I suggest much beyond consulting any documentation you can find from the developers on what needs to be set and where.
+
+I VERY STRONGLY recommend against just setting a global blanket VeryHigh threat level of permission for all users. Normally you should keep the global value at VeryLow or Low, and only allow the higher threat ones for ESTATE_OWNER, ESTATE_MANAGER and perhaps PARCEL_OWNER and PARCEL_GROUP_MEMBER depending on your trust levels. The method for doing this is (or was) detailed in the ini files themselves as well as on the Opensimulator website. See http://opensimulator.org/wiki/Threat_level for more information.
+
+Functions used by my danceball that need to be permitted for the owner of the danceball, and why:
+osIsUUID() -- used to confirm that a UUID is valid one
+osGetRezzingObject() -- used by poseball to determine the UUID of the controller that rezzed it
+osAvatarPlayAnimation()    -- used to start all animations
+osAvatarStopAnimation() -- used to stop all animations
+osMakeNotecard() -- used in edit mode to store updated animation positioning data
+osGetNotecard() -- used to read all card data since it's far faster and more efficient than line by line dataserver calls
+osMessageObject() -- used for all communications between controller and poseballs
+osGetPrimitiveParams() -- used in edit mode to retrieve positioning data
+osNpcCreate() -- used to create the NPC partners
+osNpcRemove() -- used to later remove them
+osNpcSit() -- used to tell the NPC to sit on the poseball
+osNpcLoadAppearance() -- used to swap appearances of exisiting NPC dancers
+osOwnerSaveAppearance() -- not used by the script but you will need this function if you want to create alternate NPC dance partners so it's probably best to enable it anyway.
+
+
+*****************
+***** LEGAL *****
+*****************
+
+This script and all supporting documentation is provided free of charge under Creative Commons Attribution-Non-Commercial-ShareAlike 4.0 International license. Please be sure you read and adhere to the terms of this license: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+While I make every reasonable effort to ensure that the system works perfectly for most people under most conditions, I can make no guarantees that individual installations will work. While I will do my best to support users who experience issues, I cannot always do so; nor do I have any control over future changes made during Opensim development that might alter or break functionality. At the time of this writing, the officially supported stable branch is Opensim 0.8.2.1 and this system has been tested extensively and proven to work perfectly under this release.
+
+If you received this from me as a package including the custom-made mesh master controller object and poseballs, those objects are my own creation and shared under the same licence terms. The animations included with the products are the creations of others that I have collected over the years and were supplied to me as full perm. If you are the creator of any of those animations and did not initially release it under those terms, please advise me immediately and I will remove them.
+
+**********************
+***** CHANGE LOG *****
+**********************
+
+v1.1 2014-09-29
+ - NEW: added random multi-NPC capability
+ - NEW: if only one singles dance style is defined, the style selection menu is bypassed. The user starts dancing and a second touch will stop them from dancing.
+ - NEW: added buttons to the options menu to allow you to swap the appearance of an NPC partner
+- BUGFIX: fixed a rare bug on removing a couple that could cause a message to be sent to a ball that had already been removed and resulted in a non-fatal exception being thrown by OSSL.
+
+v1.2 2014-10-05
+- NEW: auto/manual button now also appears on the main front menu for couples and selecting a style when in auto mode will return to the main menu (less confusing and lower server load to build the menu). To select a specific dance the couple will first need to switch to manual mode, then select the style and animation. This is a large load reduction for heavy traffic sims at peak usage. A side effect of this change is that you must be in manual mode to be able to access the options menu to adjust Z or change NPC partners.
+- TWEAK: made as series of other refinements which reduce server load slightly in high volume situations including staggering the couples and singles across two timer intervals instead of all at once
+- TWEAK: made the ball a little less "chatty" for basic operations
+- BUGFIX: fixed a bug where in rare cases the incorrect next dance would be selected next when changing styles in auto mode
+
+v1.21 2014-10-06
+- BUGFIX: when a new couple switches to AUTO mode without first selecting a dance, there will no longer be any delay for the first dance to start.
+- TWEAK: when a couple picks a style when in AUTO mode the first dance of the new style will begin immediately instead of waiting for the next timer roll-over to start it.
+
+v1.25 2014-11-16
+- TWEAK/ENHANCEMENT: while it isn't practical to allow fully NPC selection, I have now revised the way that NPCs are selected when creating a new one or using the "NEW F" and "NEW M" dialog options to get a new one. NPCs will now be assigned sequentially based on their respective gender lists. Each time a new NPC is created or anyone changes their NPC, the pointer is advanced through the list. This means that you should be able to obtain a specific NPC relatively easily (unless two people are trying to do it for the same gender at the same time) and there will be less likelihood in general use for multiple copies of one NPC without users specifically selecting them.
+- TWEAK: condensed script sections (only formating of them) to reduce total character count...this makes it a little harder to read but the extra "space" created allows for much longer NPC lists if needed
+
+v1.3 2015-02-10
+- BUGFIX: fixed a rare issue where a user who selects NPC couples, then sits and stands very rapidly can cause the NPC to become stranded and physical. It is still theoretically possible for this to happen if a user is incredibly quick in standing and will cause not only the NPC but also the other poseball to become stranded. This will cause all subsequent attempts to rez a poseball to fail or result in incorrect positioning and would require a full reset of the system. On a normal sim the window of opportunity for a user to dd this is tiny (perhaps 0.1 sec or less) and should never occur. Unfortunately an "unbreakable" fix would require a major rewrite to the script and necessitate the removal of at least one key other feature in order to remain within the single-script goal for the system. For this reason, I have chosen to leave it as is and if a user consistently causes this to occur they should be instructed to wait until the NPC companion is seated before they stand (and in normal operation there should be no cause for this to ever happen). This should resolve the issues that 3RG and GCG were experiencing with their noob users rezzing and stranding NPCs, eventually causing issues for the region.
+- ENHANCEMENT: per the request of several users, when poseballs are initially rezzed for a couple they rename themselves according to the sequence created. The "female" poseball will always be an odd numbered ball and "male" poseball will always be even. When a user sits on it, the ball will again rename itself to indicate that it is occupied. This allows scripters or RLV users to scan for the presence of the poseball, log its UUID, and instruct another user or NPC to be seated. Additional support, features and compatibility testing is the responsibility of those users to script and test.
+- TWEAK: deleted one of the couples dances from "Ballroom 2" set that seemed to have faulty/missing leg animation data and looked like crap
+- ENHANCEMENT : added two new couples dances -- one replaces the one removed from "Ballroom2" and the other was added to fill the empty slot in "Ballroom 4"
+- TWEAK: removed 3 of the couples dances from the slower sets (2 from "Hearts as 1" and 1 from "Hearts Beating") that in my opinion were pretty wooden-looking or substandard; then then allowed me to consolidate the 3 slow categories (one of which only had 3 dances) into only 2 categories, each with 9 dances
+- ENHANCEMENT - added 9 new solo dances to the "Regular" category (they're a "current" pop-star type of style)
+- ENHANCEMENT: added 19 new solo dances in a new category "Nightclub"
+- ENHANCEMENT: added 30 new solo dances in a new category "Sexy Club" (most of these you wouldn't be allowed to do at your high school dance...you have been warned!)
+- ENHANCEMENT: added 32 new solo dances in a new category "Burlesque" (many of these ones involve "floor work" and are definitely aimed at a more mature audience...you have been warned!!!)
+- ADVISORY: the upcoming official Opensim 0.8.1 release will include a significant bugfix to address an issue were the simulator attempted to store the state of scripts worn by NPCs when it was removing them from the scene. This would cause significant errors over time and could cause a sim to cease responding. While my own testing of this fix has produced extremely positive results I continue to STRONGLY SUGGEST THAT YOU DO NOT CREATE NEW NPCS THAT ARE WEARING SCRIPTED ATTACHMENTS.
+
+v2.0 January 2016
+- NEW FEATURE: There is now a new "GROUP" option available in the initial dialog that you can choose for dancing.
+- NEW FEATURE: auto NPC list-building and set switching
+- NEW FEATURE: there is now an optional NPC Matchmaker configuration to allow assigning a specific NPC as a user's preferred dance partner for NPC Couples.
+- NEW FEATURE: there is now an additional global z-axis offset value that can be set to adjust couples dance positions to accommodate changes to Opensim 0.9
+- ENHANCEMENT: The main danceball mesh object has been remade as a single mesh instead of linkset. It is approximate the same poly count as the old one but was uploaded with higher LOD values and simplified physics shape (even though it's set phantom by default).
+- ENHANCEMENT: The couples poseball object has been remade as a single mesh with lower poly count, and uploaded with higher LOD values and simplified physics shape (even though it, too, is phantom by default). This should make it easier to spot both objects from greater distances and/or with lower viewer LOD settings and reduces the LI for grids where LI is used.
+- ENHANCEMENT: changed the initializing and live handling of singles dances to now allow for a (virtually) unlimited number of different styles to be defined for it and presented in navigable dialog pages. Note that having a very large number of them will result in a (small) increase in the script's memory usage. It's still not possible to allow selecting a specific dance animation to play (it would require a level of dialog/menu tracking that would drastically increase the memory footprint when the danceball is in use) but I'm hoping people will enjoy the increased flexibility and ability to customize. For much the same reason, it wasn't practical to make this sort of change to the couples dances (nor do I think there are enough additional ones out there in the Metaverse to require it since there are already two empty style slots available which can accommodate 18 more dances).
+- ENHANCEMENT: The basic user settings now has a "errorCheck" variable (TRUE/FALSE) that determines whether to run extended error checking and has a large impact on initialization speed. Due to Opensim 0.9 code changes, disabling error checking may be required for some regions unless you greatly increase the value of the EventLimit variable in Opensim.ini [XEngine].
+- ENHANCEMENT: Because NPC lists are now build from inventory, added an option to randomize the order after building the lists. This is only done once, at start-up, after which the order will remain the same until the main script is reset.
+- ENHANCEMENT: Added a QUIT button to the couples options menu (except for owner when in edit mode) to allow you to quit from there as well as from the styles menu (or by standing up).
+- ENHANCEMENT: Added a script global integer constant "osNpcObjectGroup" with value of 8 which is used as a switch to the NPC creation method, allowing the NPC feature to be used in a region running Opensim 0.9 with group perms but also won't break functionality under 0.8.x. I used a global defined variable rather than the new constant OS_NPC_OBJECT_GROUP in order to allow the script to compile in regions running code earlier than Jan 4, 2016. Please note that there are additional changes to NPC configuration and functions that may require adjusting your Opensim.ini and osslenable.ini to enable the necessary functions. Consult any available Opensim documentation. Any region running a version of Opensim 0.9 with a commit date prior to January 4, 2016 will need to be set to allow full public access to allow NPCs to work (or upgraded to a more recent version or reverted to 0.8.x). IMPORTANT!!!! AT THE TIME OF THIS WRITING, FOR THIS TO WORK IN OPENSIM 0.9 PARCELS YOU NEED TO SET THE DANCEBALL GROUP TO MATCH THE ALLOWED PARCEL GROUP!!! If you run Opensim 0.8.x you don't need to worry about this at all since NPCs aren't evicted from group parcels.
+- TWEAK: Added new presence checking to a variety of places to try to catch occasions where asynchronous script handling can result in OSSL error messages being thrown as a result of trying to send issue a command to a non-existent NPC or poseball. This can't completely eliminate the chance of it happening but should make it a much rarer occurrence. The function calls are isolated and an error won't prevent the danceball from continuing to work properly for all other users. This error-catching does add a very slight amount of overhead during use, but not to an objectionable degree. The most common action that can still generate an error message is to select COUPLES NPC and sit, then stand rapidly after the NPC has rezzed and before selecting a style or dance. There is no way I can stop this from happening due to the way NPC agent entry is handled so you may need to advise a user not to do this if they're chronic about triggering it (most often it's because they aren't aware that they can use the OPTIONS menu to change to a different partner so they keep having the ball rez new ones until they get the one they want which is hard on sim resources and should be discouraged anyway...please help your newbie guests!)
+- BUGFIX: Fixed an incorrect casting assignment when pulling pos and rot values from a list as string instead of vector (it still worked fine under Opensim 0.8.x because it wasn't used until recast in a function call but could result in compile errors in the future -- and it needed to be corrected anyway).
+- TWEAK: Made a couple small tweaks in the poseball script for efficiency
+- TWEAK: Made sure that a poseball doesn't try to unsit a non-existent user which can occasionally happen due to asynch handling of operations
+- TWEAK: In regions that don't recompile scripts on start-up, a stranded poseball will now also be destroyed
+- CHANGE: The poseball script now expects to be given a zGlobal offset value from the main script and adjusts sit target position based on this value (see above). This is only done when the user first sits (all other positions are based on the poseball location rather than avi location) thus doesn't add to the sim load when in use.
+- TWEAK: attempted to ensure compatibility with the known Opensim 0.9 changes to date in addition to 0.8x (but I cannot guarantee that it will remain compatible with future code changes)
+- WARNING!!! the script inside the poseball has changed and poseballs from versions 1.x ARE NOT COMPATIBLE with version 2.x or visa versa
+- CHANGE: the NPC notecards supplied with the danceball have been renamed to comply with the new naming rules but the actual NPCs are the same
+- NEW FEATURE: added a huge number of new singles dances more than doubling the previous number (now more than 500 different singles)!!!
+- TWEAK: a number of the (in my opinion) less-good singles dances from previous danceball versions have been removed...mostly due to either because of tilted stance or poor looping
+- TWEAK: removed a few animation duplicates (even though they had different UUIDs) although I'm sure there are still more...wish there were a way to compare them at a file level...
+- TWEAK: renamed some of the dances that were in the v1.x ball to help group them a little better in inventory
+- TWEAK: re-arranged, renamed and split up some of the old dance categories since the number of them isn't limited any longer
