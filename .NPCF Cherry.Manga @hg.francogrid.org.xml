@@ -1,0 +1,119 @@
+<llsd>
+  <map>
+    <key>serial</key>
+    <integer>0</integer>
+    <key>height</key>
+    <real>1.7406073808670044</real>
+    <key>wearables</key>
+    <array>
+      <array />
+      <array />
+      <array />
+      <array />
+      <array />
+      <array />
+      <array />
+      <array />
+      <array />
+      <array />
+      <array />
+      <array />
+      <array />
+      <array />
+      <array />
+    </array>
+    <key>textures</key>
+    <array>
+      <uuid>f25263b7-6167-4f34-a4ef-af65213b2e39</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>b320ba5b-cb65-4a4e-b8db-8b95a5743412</uuid>
+      <uuid>dc526c04-0abe-4f3a-a329-8301bbcd5f25</uuid>
+      <uuid>dc0c58a0-20dd-4ab6-9406-d6f60f5ab023</uuid>
+      <uuid>8d7b890f-6d7b-402b-8c94-a1f65fb8149b</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>c228d1cf-4b5d-4ba8-84f4-899a0796aa97</uuid>
+      <uuid>aef00ad8-5861-4b5c-96bf-61282565ba9b</uuid>
+    </array>
+    <key>visualparams</key>
+    <binary encoding="base64">ERFCAERmIzUeGQDAh2ZMaGte26oAc9+yAIQAW3+blgDLAP+gAAB/AAAAAAAAAAAAAHKZgrx/AAAApQARMwAAAAAAAABPhHBwAF4AoH//AHWJllV/fwBFAGTY1szMzDMZWUzMADUAAH+La3+ZOAB/WX9/f3BeTHx/f2ojT393qj8AAAAAf38AAAAAfwCfAAAAACNbVH9thLeEIwCjAJ5yANbMxgAAaySJ4v/G////////////zAD//////////////wD//////wB/MP8ZZP////9UAAAAMwD///8=</binary>
+    <key>attachments</key>
+    <array>
+      <map>
+        <key>point</key>
+        <integer>1</integer>
+        <key>item</key>
+        <uuid>efcb9bff-41c5-40e3-b9f8-9098daabd085</uuid>
+        <key>asset</key>
+        <uuid>9168a574-c7f1-491a-b4c4-e76bd32efc8e</uuid>
+      </map>
+      <map>
+        <key>point</key>
+        <integer>27</integer>
+        <key>item</key>
+        <uuid>9a706077-f1b7-4204-853e-e89b3be554f4</uuid>
+        <key>asset</key>
+        <uuid>ce284fc8-dcfe-4615-ba4f-3f7c3d846146</uuid>
+      </map>
+      <map>
+        <key>point</key>
+        <integer>5</integer>
+        <key>item</key>
+        <uuid>119eefec-932a-45c6-b490-125736d6efd8</uuid>
+        <key>asset</key>
+        <uuid>94e64ef3-9be8-4481-895d-5c3ea6df0d1f</uuid>
+      </map>
+      <map>
+        <key>point</key>
+        <integer>6</integer>
+        <key>item</key>
+        <uuid>e6dd0e4a-6e1c-46dc-9f61-a2cbc9e7a1ab</uuid>
+        <key>asset</key>
+        <uuid>fafed9ce-7cda-45a5-ac15-023e9dbf7237</uuid>
+      </map>
+      <map>
+        <key>point</key>
+        <integer>9</integer>
+        <key>item</key>
+        <uuid>baa4d493-5e68-4d20-98ad-ecaf925f41df</uuid>
+        <key>asset</key>
+        <uuid>181573fb-32e9-47cd-91f8-2ae600a66ad7</uuid>
+      </map>
+      <map>
+        <key>point</key>
+        <integer>9</integer>
+        <key>item</key>
+        <uuid>ce68c866-eca9-4c0d-b527-dea6009fb44d</uuid>
+        <key>asset</key>
+        <uuid>dbbbf58d-a873-4d77-b079-e1acbf7092c7</uuid>
+      </map>
+      <map>
+        <key>point</key>
+        <integer>2</integer>
+        <key>item</key>
+        <uuid>43a088b3-e0bc-41a1-a9a9-cad057674d81</uuid>
+        <key>asset</key>
+        <uuid>d6894a61-a526-4321-abae-55472a3c32a2</uuid>
+      </map>
+      <map>
+        <key>point</key>
+        <integer>17</integer>
+        <key>item</key>
+        <uuid>c53ba099-7487-4190-a923-9476d2694cbf</uuid>
+        <key>asset</key>
+        <uuid>6bab2b65-c6dc-43cc-981c-8f0026946e1d</uuid>
+      </map>
+    </array>
+  </map>
+</llsd>
